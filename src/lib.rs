@@ -36,4 +36,6 @@ impl Player {
     }
 }
 
-fn game_logic(player: Player) {}
+fn game_logic(player: Player) {
+    loop {}
+}
