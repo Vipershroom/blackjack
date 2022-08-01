@@ -1,3 +1,5 @@
+use rand::Rng;
+
 pub fn input() -> String {
     let mut buf = String::new();
 
@@ -36,6 +38,40 @@ impl Player {
     }
 }
 
-fn game_logic(player: Player) {
-    loop {}
+fn draw_card() -> i32 {
+    rand::thread_rng().gen_range(1..13)
+}
+
+pub fn game_logic(mut player: Player) {
+    player.add_deck(draw_card());
+    player.add_deck(draw_card());
+    println!("The game has begun!");
+    loop {
+        player.sum();
+        match player.sum_of_deck {
+            deck if deck == 21 => {
+                println!("Congrats! You reached 21");
+                println!("Deck: {:?}, Sum: {}", player.deck, player.sum_of_deck);
+                std::process::exit(0);
+            }
+            deck if deck > 21 => {
+                println!("You lose, you reached over 21");
+                println!("Deck: {:?}, Sum: {}", player.deck, player.sum_of_deck);
+                std::process::exit(0);
+            }
+            _ => (),
+        }
+
+        println!(
+            "Your deck consists of {:?}, Sum: {}",
+            player.deck, player.sum_of_deck
+        );
+
+        println!("Would you like to hit? Y/n");
+        let res = input();
+
+        if res.to_lowercase() == "y" {
+            player.add_deck(draw_card())
+        }
+    }
 }
