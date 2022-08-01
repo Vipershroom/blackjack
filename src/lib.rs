@@ -71,7 +71,17 @@ pub fn game_logic(mut player: Player) {
         let res = input();
 
         if res.to_lowercase() == "y" {
-            player.add_deck(draw_card())
+            let mut card = draw_card();
+            if card == 1 || card == 11 {
+                println!("You got an ace! Would you like a 1 or an 11?");
+                let res = input();
+                if res.as_str() == "11" {
+                    card = 11
+                } else {
+                    card = 1;
+                }
+            }
+            player.add_deck(card)
         }
     }
 }
