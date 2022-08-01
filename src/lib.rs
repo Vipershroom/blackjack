@@ -52,11 +52,13 @@ pub fn game_logic(mut player: Player) {
             deck if deck == 21 => {
                 println!("Congrats! You reached 21");
                 println!("Deck: {:?}, Sum: {}", player.deck, player.sum_of_deck);
+                input();
                 std::process::exit(0);
             }
             deck if deck > 21 => {
                 println!("You lose, you reached over 21");
                 println!("Deck: {:?}, Sum: {}", player.deck, player.sum_of_deck);
+                input();
                 std::process::exit(0);
             }
             _ => (),
