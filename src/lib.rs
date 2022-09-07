@@ -36,13 +36,23 @@ impl Player {
     pub fn add_deck(&mut self, num: i32) {
         self.deck.push(num);
     }
+    // Method for generating AI struct
+    pub fn new_ai() -> Player {
+        let name = String::from("AI");
+        let deck: Vec<i32> = vec![];
+        Player {
+            name: (name),
+            deck: (deck),
+            sum_of_deck: (0),
+        }
+    }
 }
 
 fn draw_card() -> i32 {
     rand::thread_rng().gen_range(1..13)
 }
 
-pub fn game_logic(mut player: Player) {
+pub fn singleplayer_logic(mut player: Player) {
     player.add_deck(draw_card());
     player.add_deck(draw_card());
     println!("The game has begun!");
@@ -86,4 +96,13 @@ pub fn game_logic(mut player: Player) {
             player.add_deck(card)
         }
     }
+}
+
+pub fn multiplayer_logic(mut player: Player) {
+    let mut ai = Player::new_ai();
+    player.add_deck(draw_card());
+    player.add_deck(draw_card());
+    ai.add_deck(draw_card());
+    ai.add_deck(draw_card());
+    println!("The game has begun");
 }
